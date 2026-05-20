@@ -1,0 +1,4206 @@
+{
+  "metadata": {
+    "created_at_unix": 1779302380,
+    "world": "2d_key_door_grid",
+    "policy": "scripted",
+    "observation_format": "structured JSON with map, position, facing, inventory, front cell, landmarks, and valid actions",
+    "action_space": [
+      "move_forward",
+      "turn_left",
+      "turn_right",
+      "pick_up",
+      "open_door",
+      "look",
+      "wait"
+    ],
+    "objective": "Collect the key, open the locked door, and reach the goal.",
+    "log_path": "examples/successful_episode_log.json"
+  },
+  "summary": {
+    "goal_complete": true,
+    "key_collected": true,
+    "door_opened": true,
+    "steps": 14,
+    "invalid_actions": 0,
+    "invalid_action_rate": 0.0,
+    "score": 1.0,
+    "max_steps": 80
+  },
+  "initial_map": [
+    "##########",
+    "#>..K...##",
+    "#.###.#..#",
+    "#...#.#..#",
+    "#.#.D.G..#",
+    "#........#",
+    "##########"
+  ],
+  "final_map": [
+    "##########",
+    "#.......##",
+    "#.###.#..#",
+    "#...#.#..#",
+    "#.#.d.>..#",
+    "#........#",
+    "##########"
+  ],
+  "events": [
+    {
+      "step": 1,
+      "observation": {
+        "step": 0,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 1,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [],
+        "front": {
+          "x": 2,
+          "y": 1,
+          "cell": "empty"
+        },
+        "direction_to_key": {
+          "dx": 3,
+          "dy": 0
+        },
+        "direction_to_goal": {
+          "dx": 5,
+          "dy": 3
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#>..K...##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": -1,
+            "y": -1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": -1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": -1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": -1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": -1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": -1,
+            "y": 0,
+            "dx": -2,
+            "dy": -1,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "dx": 0,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "dx": 2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": -1,
+            "y": 1,
+            "dx": -2,
+            "dy": 0,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 1,
+            "dx": -1,
+            "dy": 0,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "dx": 1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": -1,
+            "y": 2,
+            "dx": -2,
+            "dy": 1,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 2,
+            "dx": -1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "dx": 1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": 2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": -1,
+            "y": 3,
+            "dx": -2,
+            "dy": 2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "dx": 0,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "dx": 1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": 2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 2,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#.>.K...##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 2,
+      "observation": {
+        "step": 1,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 2,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [],
+        "front": {
+          "x": 3,
+          "y": 1,
+          "cell": "empty"
+        },
+        "direction_to_key": {
+          "dx": 2,
+          "dy": 0
+        },
+        "direction_to_goal": {
+          "dx": 4,
+          "dy": 3
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.>.K...##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 0,
+            "y": -1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": -1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": -1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": -1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": -1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "dx": -2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "dx": 0,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "dx": 2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 1,
+            "dx": -2,
+            "dy": 0,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "dx": -1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": 1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": 2,
+            "dy": 0,
+            "cell": "key",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 2,
+            "dx": -2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "dx": -1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "dx": 0,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": 1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": 2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "dx": -2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "dx": -1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "dx": 0,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": 1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 3,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#..>K...##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 3,
+      "observation": {
+        "step": 2,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 3,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [],
+        "front": {
+          "x": 4,
+          "y": 1,
+          "cell": "key"
+        },
+        "direction_to_key": {
+          "dx": 1,
+          "dy": 0
+        },
+        "direction_to_goal": {
+          "dx": 3,
+          "dy": 3
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#..>K...##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 1,
+            "y": -1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": -1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": -1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": -1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": -1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "dx": -2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "dx": 0,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "dx": 2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "dx": -1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": 1,
+            "dy": 0,
+            "cell": "key",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 1,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "dx": -1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": 0,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": 1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "dx": -2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "dx": -1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": 0,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 4,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#...>...##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 4,
+      "observation": {
+        "step": 3,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 4,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [],
+        "front": {
+          "x": 5,
+          "y": 1,
+          "cell": "empty"
+        },
+        "direction_to_key": {
+          "dx": 0,
+          "dy": 0
+        },
+        "direction_to_goal": {
+          "dx": 2,
+          "dy": 3
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#...>...##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 2,
+            "y": -1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": -1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": -1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": -1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": -1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "dx": -2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "dx": 0,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "dx": 2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": -1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": 0,
+            "dy": 0,
+            "cell": "key",
+            "agent": true
+          },
+          {
+            "x": 5,
+            "y": 1,
+            "dx": 1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 1,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "dx": -2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": 0,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "dx": -2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": 0,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "pick_up",
+        "reason": "Standing on the key."
+      },
+      "result": {
+        "valid": true,
+        "message": "key collected",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 4,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [
+          "key"
+        ],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#...>...##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 5,
+      "observation": {
+        "step": 4,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 4,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 5,
+          "y": 1,
+          "cell": "empty"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 2,
+          "dy": 3
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#...>...##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 2,
+            "y": -1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": -1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": -1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": -1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": -1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "dx": -2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "dx": 0,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "dx": 2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": -1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 5,
+            "y": 1,
+            "dx": 1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 1,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "dx": -2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": 0,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "dx": -2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": 0,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [
+          "key"
+        ],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#....>..##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 6,
+      "observation": {
+        "step": 5,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 1
+        },
+        "facing": "E",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 6,
+          "y": 1,
+          "cell": "empty"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 3
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#....>..##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": -1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": -1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": -1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": -1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": -1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "dx": -2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "dx": 0,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 0,
+            "dx": 2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": -1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 1,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 1,
+            "dx": 1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 1,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "turn_right",
+        "reason": "Turn toward the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 1
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#....v..##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 7,
+      "observation": {
+        "step": 6,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 1
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 5,
+          "y": 2,
+          "cell": "empty"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 3
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#....v..##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": -1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": -1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": -1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": -1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": -1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "out_of_bounds",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "dx": -2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "dx": 0,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 0,
+            "dx": 2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": -1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 1,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 1,
+            "dx": 1,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 1,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 2
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###v#..#",
+        "#...#.#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 8,
+      "observation": {
+        "step": 7,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 2
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 5,
+          "y": 3,
+          "cell": "empty"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 2
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.......##",
+          "#.###v#..#",
+          "#...#.#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": 0,
+            "dx": -2,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "dx": -1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "dx": 0,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "dx": 1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 0,
+            "dx": 2,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "dx": -2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": -1,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 1,
+            "dx": 0,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 1,
+            "dx": 1,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 1,
+            "dx": 2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": 0,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": 0,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": 0,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": 1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "dx": -2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "dx": -1,
+            "dy": 2,
+            "cell": "locked_door",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "dx": 0,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "dx": 1,
+            "dy": 2,
+            "cell": "goal",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "dx": 2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 3
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###.#..#",
+        "#...#v#..#",
+        "#.#.D.G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 9,
+      "observation": {
+        "step": 8,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 3
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 5,
+          "y": 4,
+          "cell": "empty"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 1
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.......##",
+          "#.###.#..#",
+          "#...#v#..#",
+          "#.#.D.G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": 1,
+            "dx": -2,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "dx": -1,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 1,
+            "dx": 0,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 1,
+            "dx": 1,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 1,
+            "dx": 2,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": 0,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": 0,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "dx": -1,
+            "dy": 1,
+            "cell": "locked_door",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "dx": 1,
+            "dy": 1,
+            "cell": "goal",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "dx": -2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "dx": -1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "dx": 0,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "dx": 1,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "dx": 2,
+            "dy": 2,
+            "cell": "empty",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.DvG..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 10,
+      "observation": {
+        "step": 9,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "S",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 5,
+          "y": 5,
+          "cell": "empty"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 0
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.......##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.DvG..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "dx": -1,
+            "dy": 0,
+            "cell": "locked_door",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "dx": 1,
+            "dy": 0,
+            "cell": "goal",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "dx": -1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "dx": 1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 6,
+            "dx": -2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 6,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "dx": 0,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "turn_right",
+        "reason": "Turn toward the door."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "W",
+        "inventory": [
+          "key"
+        ],
+        "door_open": false
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.D<G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 11,
+      "observation": {
+        "step": 10,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "W",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 4,
+          "y": 4,
+          "cell": "locked_door"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 0
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": false
+        },
+        "valid_actions": [
+          "turn_left",
+          "turn_right",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.......##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.D<G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "dx": -1,
+            "dy": 0,
+            "cell": "locked_door",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "dx": 1,
+            "dy": 0,
+            "cell": "goal",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "dx": -1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "dx": 1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 6,
+            "dx": -2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 6,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "dx": 0,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "open_door",
+        "reason": "Facing the locked door with the key."
+      },
+      "result": {
+        "valid": true,
+        "message": "door opened",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "W",
+        "inventory": [
+          "key"
+        ],
+        "door_open": true
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.d<G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 12,
+      "observation": {
+        "step": 11,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "W",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 4,
+          "y": 4,
+          "cell": "open_door"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 0
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": true
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.......##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.d<G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "dx": -1,
+            "dy": 0,
+            "cell": "open_door",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "dx": 1,
+            "dy": 0,
+            "cell": "goal",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "dx": -1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "dx": 1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 6,
+            "dx": -2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 6,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "dx": 0,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "turn_right",
+        "reason": "Turn toward the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "N",
+        "inventory": [
+          "key"
+        ],
+        "door_open": true
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.d^G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 13,
+      "observation": {
+        "step": 12,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "N",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 5,
+          "y": 3,
+          "cell": "empty"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 0
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": true
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.......##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.d^G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "dx": -1,
+            "dy": 0,
+            "cell": "open_door",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "dx": 1,
+            "dy": 0,
+            "cell": "goal",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "dx": -1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "dx": 1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 6,
+            "dx": -2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 6,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "dx": 0,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "turn_right",
+        "reason": "Turn toward the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": false,
+        "done": false,
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "E",
+        "inventory": [
+          "key"
+        ],
+        "door_open": true
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.d>G..#",
+        "#........#",
+        "##########"
+      ]
+    },
+    {
+      "step": 14,
+      "observation": {
+        "step": 13,
+        "objective": "Collect the key, open the locked door, and reach the goal.",
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "facing": "E",
+        "inventory": [
+          "key"
+        ],
+        "front": {
+          "x": 6,
+          "y": 4,
+          "cell": "goal"
+        },
+        "direction_to_key": null,
+        "direction_to_goal": {
+          "dx": 1,
+          "dy": 0
+        },
+        "door": {
+          "position": {
+            "x": 4,
+            "y": 4
+          },
+          "open": true
+        },
+        "valid_actions": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "look",
+          "wait"
+        ],
+        "action_space": [
+          "move_forward",
+          "turn_left",
+          "turn_right",
+          "pick_up",
+          "open_door",
+          "look",
+          "wait"
+        ],
+        "legend": {
+          "#": "wall",
+          ".": "empty",
+          "K": "key",
+          "D": "locked door",
+          "d": "open door",
+          "G": "goal",
+          "^>v<": "agent facing direction"
+        },
+        "map": [
+          "##########",
+          "#.......##",
+          "#.###.#..#",
+          "#...#.#..#",
+          "#.#.d>G..#",
+          "#........#",
+          "##########"
+        ],
+        "visible_cells": [
+          {
+            "x": 3,
+            "y": 2,
+            "dx": -2,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "dx": -1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "dx": 0,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "dx": 1,
+            "dy": -2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "dx": 2,
+            "dy": -2,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "dx": -2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "dx": -1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "dx": 0,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "dx": 1,
+            "dy": -1,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 3,
+            "dx": 2,
+            "dy": -1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "dx": -2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "dx": -1,
+            "dy": 0,
+            "cell": "open_door",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "dx": 0,
+            "dy": 0,
+            "cell": "empty",
+            "agent": true
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "dx": 1,
+            "dy": 0,
+            "cell": "goal",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 4,
+            "dx": 2,
+            "dy": 0,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "dx": -2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "dx": -1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "dx": 0,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "dx": 1,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "dx": 2,
+            "dy": 1,
+            "cell": "empty",
+            "agent": false
+          },
+          {
+            "x": 3,
+            "y": 6,
+            "dx": -2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 4,
+            "y": 6,
+            "dx": -1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "dx": 0,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "dx": 1,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "dx": 2,
+            "dy": 2,
+            "cell": "wall",
+            "agent": false
+          }
+        ]
+      },
+      "decision": {
+        "source": "scripted",
+        "action": "move_forward",
+        "reason": "Advance along the planned path."
+      },
+      "result": {
+        "valid": true,
+        "message": "ok",
+        "success": true,
+        "done": true,
+        "position": {
+          "x": 6,
+          "y": 4
+        },
+        "facing": "E",
+        "inventory": [
+          "key"
+        ],
+        "door_open": true
+      },
+      "map_after_action": [
+        "##########",
+        "#.......##",
+        "#.###.#..#",
+        "#...#.#..#",
+        "#.#.d.>..#",
+        "#........#",
+        "##########"
+      ]
+    }
+  ]
+}

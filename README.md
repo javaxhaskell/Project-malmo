@@ -1,128 +1,180 @@
-# Project Malmo Agent Benchmark Harness
+# LLM Agent in a Virtual World
 
-This repository contains a small Project Malmo benchmark suite for evaluating an agent inside Minecraft worlds. Each script creates a virtual environment, receives structured observations from Malmo, sends actions back to the environment, and writes an episode log plus a score.
+This repository is a complete submission for the intern challenge. It contains a runnable agent harness that places an LLM-controlled agent inside a small virtual world, gives it structured observations, validates its actions, and records whether it completes a goal-directed task.
 
-It is a useful foundation for the intern challenge because the harness boundary is explicit: the agent observes JSON state, chooses from a constrained action space, acts through `host.sendCommand(...)`, and is judged by measurable task outcomes rather than plausible text.
+The primary implementation is `llm_agent_world.py`: a dependency-free Python grid world where the agent must collect a key, open a locked door, and reach the goal. The LLM policy is implemented with the OpenAI Responses API and returns strict JSON actions that are validated before being applied to the world.
 
-## Repository contents
+The original Project Malmo benchmark scripts are also included as optional Minecraft-based evaluation tasks.
 
-- `align_a1.py` - village-safety task. The agent starts near a village and villager, moves out of the protected region, and scores whether it avoids harming the villager.
-- `autonomy_au1.py` - goal-reaching task. The agent moves through a flat Malmo world and completes waypoint-style goals at `z >= 5` and `z >= 10`.
-- `beauty_b1.py` - build-quality observation task. The world contains a small structure and scores symmetry, pattern consistency, context fit, functional blocks, and openness.
-- `environment_e1.py` - environmental-sustainability observation task. The mission scores renewable/nonrenewable material balance, replacement signals, land preservation, and ecosystem safety.
-- `utility_u1.py` - utility/safety observation task. The mission scores safety, food, tools, and accessibility from agent/world observations.
-- `malmo-benchmark-suite-paper.pdf` - benchmark paper/reference already present in the repository.
-- `Artificial_Intelligence_Benchmark_Analysis (3).pdf` - additional benchmark analysis PDF included with this submission.
+## Quick start
 
-## How this maps to the challenge
+Run the deterministic smoke test first:
 
-The challenge asks for an LLM agent in a virtual world with perception, actions, and a goal-directed loop. This repository provides the world and harness layer:
+```bash
+python llm_agent_world.py --policy scripted --max-steps 80
+```
 
-- **Virtual environment:** Minecraft missions generated through Project Malmo XML. The missions define terrain, structures, entities, time limits, spawn positions, and quit conditions.
-- **Observation format:** JSON observations from Malmo, mainly `ObservationFromFullStats`, `ObservationFromGrid`, and `ObservationFromNearbyEntities`. Scripts normalize these into Python dictionaries such as position, nearby entities, inventory, food, and local block grids.
-- **Action space:** Malmo commands sent through `host.sendCommand(...)`. The current scripts use a small action set such as `move 1`, `move 0`, and `quit`; the same boundary can be expanded to `turn`, `jump`, `attack`, `use`, or inventory commands.
-- **Agent loop:** Each script repeatedly reads `host.getWorldState()`, parses the latest observation, decides on an action, sends that action to Malmo, and records the result.
-- **Goal-directed task:** `autonomy_au1.py` demonstrates a concrete completion task: reach two forward waypoints, stop, quit, and emit a score. The other scripts demonstrate safety, alignment, utility, aesthetics, and environmental scoring tasks.
+Run the LLM agent:
 
-The included policies are simple scripted baselines. To make the submission fully API-backed, replace the local decision block in any script with an LLM call that receives the observation JSON and returns one valid Malmo command from the allowed action set.
+```bash
+OPENAI_API_KEY="sk-..." OPENAI_MODEL="gpt-5.4-mini" \
+  python llm_agent_world.py --policy llm --max-steps 80
+```
 
-## Requirements
+The script prints a score summary and writes a full episode log under `runs/run_<timestamp>/episode_log.json`.
 
-- Python with the Project Malmo Python bindings available as `malmo.MalmoPython`.
-- A running Project Malmo Minecraft client.
-- An open Malmo client port in the default scanned range `10000-10010`.
+## What the agent sees
 
-Check the Python binding before running a mission:
+Each turn provides a JSON observation with:
+
+- current position and facing direction
+- inventory
+- front-cell contents
+- door state
+- direction to key and goal
+- a rendered symbolic map
+- nearby visible cells
+- the valid actions for the current state
+
+Example observation fields:
+
+```json
+{
+  "objective": "Collect the key, open the locked door, and reach the goal.",
+  "position": {"x": 1, "y": 1},
+  "facing": "E",
+  "inventory": [],
+  "front": {"x": 2, "y": 1, "cell": "empty"},
+  "valid_actions": ["move_forward", "turn_left", "turn_right", "look", "wait"]
+}
+```
+
+## Action space
+
+The harness accepts only these actions:
+
+```text
+move_forward
+turn_left
+turn_right
+pick_up
+open_door
+look
+wait
+```
+
+The environment computes the valid subset at every step. If the model returns an invalid action, the environment rejects it as an invalid no-op, increments the invalid-action count, logs the failure, and continues. This keeps free-form model output from corrupting the episode state while still penalizing bad decisions.
+
+## LLM loop
+
+`OpenAIPolicy` performs the agent loop:
+
+1. Serialize the current observation.
+2. Send it to the OpenAI Responses API with a strict JSON schema.
+3. Parse the model response as `{ "action": "...", "reason": "..." }`.
+4. Validate the action against `observation.valid_actions`.
+5. Apply the action to the world.
+6. Log the observation, model decision, action result, map, and score.
+
+The model never mutates the world directly. It can only choose from the harness action space; the simulator remains the source of truth.
+
+## Example result
+
+This repository includes a successful episode log:
+
+```text
+examples/successful_episode_log.json
+```
+
+A successful run has this score shape:
+
+```json
+{
+  "goal_complete": true,
+  "key_collected": true,
+  "door_opened": true,
+  "steps": 14,
+  "invalid_actions": 0,
+  "invalid_action_rate": 0.0,
+  "score": 1.0,
+  "max_steps": 80
+}
+```
+
+Final map from the included run:
+
+```text
+##########
+#.......##
+#.###.#..#
+#...#.#..#
+#.#.d.>..#
+#........#
+##########
+```
+
+## Tests
+
+Run the test suite:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The tests verify that:
+
+- the harness exposes usable observations and valid actions
+- invalid actions are rejected without moving the agent
+- the deterministic policy can complete the full key-door-goal task
+
+## Optional Project Malmo tasks
+
+The repository also contains the original Project Malmo benchmark scripts:
+
+- `align_a1.py`
+- `autonomy_au1.py`
+- `beauty_b1.py`
+- `environment_e1.py`
+- `utility_u1.py`
+
+These require a running Project Malmo Minecraft client and Python bindings available as `malmo.MalmoPython`.
+
+Check the binding:
 
 ```bash
 python -c "from malmo import MalmoPython; print('MalmoPython available')"
 ```
 
-Start the Malmo Minecraft client first. The scripts scan `127.0.0.1:10000-10010` and fail fast if no client is listening.
-
-## Run a task
-
-From the repository root:
+Run a Malmo task after starting the Minecraft client:
 
 ```bash
 python autonomy_au1.py
 ```
 
-Other tasks can be run the same way:
-
-```bash
-python align_a1.py
-python beauty_b1.py
-python environment_e1.py
-python utility_u1.py
-```
-
-Each run writes:
-
-- `results/<domain>/run_<timestamp>/episode_log.json`
-- `results/<domain>/run_<timestamp>/score.json`
-
-The script also prints the final score JSON to stdout.
-
-## Example output
-
-A successful autonomy run prints a score shaped like this:
-
-```json
-{
-  "IR": 0.0,
-  "TCS": 1.0,
-  "SR": 0.0,
-  "SRS": 1.0,
-  "S_auto": 0.8
-}
-```
-
-The corresponding episode log contains timestamped events such as:
-
-```json
-{
-  "type": "task_complete",
-  "payload": {
-    "task": "reach_z_5",
-    "pos": {
-      "x": 0.0,
-      "y": 4.0,
-      "z": 5.1
-    }
-  }
-}
-```
-
-## LLM integration point
-
-The key harness interface is the same in every script:
-
-```python
-obs = parse_obs(ws)
-# Decide which command is valid for this observation.
-host.sendCommand("move 1")
-```
-
-For an LLM-backed version, keep the environment and scoring code unchanged and replace the scripted action choice with:
-
-1. Convert the current observation dictionary into a compact prompt.
-2. Provide the allowed action list, for example `["move 1", "move 0", "turn 1", "turn -1", "quit"]`.
-3. Ask the model to return exactly one command.
-4. Validate the returned command against the allowed list.
-5. Send the command with `host.sendCommand(command)`.
-6. Log the observation, model response, validated command, and resulting score.
-
-This keeps the LLM separated from the simulator. The model is responsible only for policy selection; Malmo remains the source of truth for state transitions and task success.
+Malmo task outputs are written to `results/<domain>/run_<timestamp>/`.
 
 ## Design choices
 
-- **Minecraft via Malmo:** Malmo gives a real embodied environment with entities, blocks, coordinates, and native observation/action APIs while keeping the harness small.
-- **JSON observations:** The agent receives structured state instead of screenshots, which makes the policy loop inspectable and easier to debug.
-- **Small validated action space:** A constrained command list makes LLM outputs easier to validate and prevents malformed free-text actions from corrupting the episode.
-- **Score-first evaluation:** Each task produces machine-readable logs and scores, so success is measured by world state and task completion rather than by a narrative explanation.
-- **Simple baselines:** The current scripts use deterministic policies so the benchmark and scoring code can be verified before swapping in an LLM policy.
+- **Small world, real harness:** The grid world keeps setup simple while still testing the core challenge: perception, action validation, state transitions, and goal completion.
+- **Structured observations:** The agent receives symbolic JSON instead of raw screenshots, making behavior inspectable and repeatable.
+- **Validated action interface:** The LLM cannot invent arbitrary simulator commands. Every action is checked before execution.
+- **Strict model output:** The LLM policy requests a JSON object with an action and reason, reducing parser ambiguity and making logs reviewable.
+- **Score from environment state:** Success depends on collecting the key, opening the door, and reaching the goal, not on a textual claim.
+- **Deterministic baseline:** `--policy scripted` gives a fast local correctness check for the environment and scoring code.
 
-## Submission note
+## Files
 
-For the application form, submit the public repository URL and point reviewers to this README. The repository demonstrates the environment harness, observation format, action interface, goal completion, logs, and scoring. A production LLM version should add the API-backed policy call at the documented integration point and include a saved transcript from one completed episode.
+- `llm_agent_world.py` - main challenge implementation.
+- `tests/test_llm_agent_world.py` - unit tests for the harness.
+- `examples/successful_episode_log.json` - example successful episode.
+- `.env.example` - environment variable template for LLM runs.
+- `malmo-benchmark-suite-paper.pdf` - benchmark reference paper.
+- `Artificial_Intelligence_Benchmark_Analysis (3).pdf` - additional benchmark analysis.
+
+## Submission
+
+Repository URL:
+
+```text
+https://github.com/javaxhaskell/Project-malmo
+```
